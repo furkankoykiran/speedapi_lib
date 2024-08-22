@@ -13,26 +13,27 @@ pip install speedapi-lib
 ## Usage
 
 ```python
-from speedapi_lib.api_client import SpeedAPIClient
-from speedapi_lib.invoice import Invoice
-from speedapi_lib.config import AppConfig
+from speedapi_lib.speedapi import SpeedAPI
 
-config = AppConfig()
+# Initialize the SpeedAPI class with user-provided inputs
+api = SpeedAPI(secret_key='your_secret_key', base_url='https://api.tryspeed.com')
 
-client = SpeedAPIClient(secret_key=config.SECRET_KEY, base_url=config.BASE_URL)
-balance = client.get_balance_sats()
+# Get balance in SATS
+balance = api.get_balance_sats()
 print(f"Balance: {balance} SATS")
 
+# Decode and print invoice details
 invoice_str = "your_invoice_here"
-invoice = Invoice(invoice_str)
-invoice_info = invoice.get_info()
+invoice_info = api.get_invoice_info(invoice_str)
 print(invoice_info)
 
+# Pay the invoice if balance is sufficient
 if balance >= invoice_info["amount"]:
-    payment = client.pay_invoice(invoice_str)
-    print(payment)
+    payment_response = api.pay_invoice(invoice_str)
+    print("Payment successful:", payment_response)
 else:
     print("Insufficient balance to pay invoice")
+
 ```
 
 ## License
