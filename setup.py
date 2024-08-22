@@ -2,13 +2,11 @@ from setuptools import setup, find_packages
 
 setup(
     name='speedapi_lib',
-    version='0.1.2',
+    version='0.1.3',
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
         'requests',
-        'pydantic',
-        'pydantic-settings',
         'bolt11',
     ],
     entry_points={
