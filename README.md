@@ -29,7 +29,8 @@ invoice_info = invoice.get_info()
 print(invoice_info)
 
 if balance >= invoice_info["amount"]:
-    client.pay_invoice(invoice_str)
+    payment = client.pay_invoice(invoice_str)
+    print(payment)
 else:
     print("Insufficient balance to pay invoice")
 ```
