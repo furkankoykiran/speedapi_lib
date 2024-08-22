@@ -1,4 +1,4 @@
-# Speed_Lib
+# speedapi_lib
 
 This is a Python library for interacting with the Speed API and managing Lightning Network invoices.
 
@@ -7,15 +7,15 @@ This is a Python library for interacting with the Speed API and managing Lightni
 You can install this library from your private GitHub repository:
 
 ```bash
-pip install git+https://github.com/furkankoykiran/speed_lib.git@main
+pip install git+https://github.com/furkankoykiran/speedapi_lib.git@main
 ```
 
 ## Usage
 
 ```python
-from speed_lib.api_client import SpeedAPIClient
-from speed_lib.invoice import Invoice
-from speed_lib.config import AppConfig
+from speedapi_lib.api_client import SpeedAPIClient
+from speedapi_lib.invoice import Invoice
+from speedapi_lib.config import AppConfig
 
 config = AppConfig()
 

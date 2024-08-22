@@ -1,5 +1,5 @@
 import unittest
-from speed_lib.api_client import SpeedAPIClient
+from speedapi_lib.api_client import SpeedAPIClient
 
 class TestSpeedAPIClient(unittest.TestCase):
 

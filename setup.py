@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='speed_lib',
+    name='speedapi_lib',
     version='0.1.1',
     packages=find_packages(),
     include_package_data=True,
@@ -13,7 +13,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'speed_lib=speed_lib.main:main',
+            'speedapi_lib=speedapi_lib.main:main',
         ],
     },
     author='Furkan Köykıran',
@@ -21,7 +21,7 @@ setup(
     description='A Python library for interacting with Speed API and managing Lightning Network invoices',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
-    url='https://github.com/furkankoykiran/speed_lib',
+    url='https://github.com/furkankoykiran/speedapi_lib',
     classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',
