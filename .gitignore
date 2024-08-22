@@ -1,17 +1,12 @@
-# Venv Ignores:
-venv/
-.venv/
+# Ignore Python build directories
+build/
+dist/
+*.egg-info/
 
-# Env Ignores:
-.env
-
-# Cache Ignores:
+# You can also add other related files
 __pycache__/
-*.pyc
+*.py[cod]
 
-# Logs Ignores:
-*.log
-
-# IDE Ignores:
-.idea/
-.vscode/
+# Ignore Virtual Environment
+venv/
+.venv
