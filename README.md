@@ -7,7 +7,7 @@ This is a Python library for interacting with the Speed API and managing Lightni
 You can install this library from your private GitHub repository:
 
 ```bash
-pip install git+https://github.com/furkankoykiran/speedapi_lib.git@main
+pip install speedapi-lib
 ```
 
 ## Usage
