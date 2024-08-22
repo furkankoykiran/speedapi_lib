@@ -1,0 +1,17 @@
+# Venv Ignores:
+venv/
+.venv/
+
+# Env Ignores:
+.env
+
+# Cache Ignores:
+__pycache__/
+*.pyc
+
+# Logs Ignores:
+*.log
+
+# IDE Ignores:
+.idea/
+.vscode/
