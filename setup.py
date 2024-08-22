@@ -8,7 +8,7 @@ setup(
     install_requires=[
         'requests',
         'pydantic',
-        'python-dotenv',
+        'pydantic-settings',
         'bolt11',
     ],
     entry_points={
