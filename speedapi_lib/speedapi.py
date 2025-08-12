@@ -25,6 +25,10 @@ class SpeedAPI:
         return balance
 
     def pay_invoice(self, invoice: str) -> dict:
+        # First decode the invoice to get the amount
+        decoded_invoice = bolt11.decode(invoice)
+        amount_sats = decoded_invoice.amount_msat / 1000  # Convert from millisatoshi to satoshi
+        
         url = f"{self.base_url}/send"
         headers = {
             "accept": "application/json",
@@ -32,6 +36,7 @@ class SpeedAPI:
             "content-type": "application/json"
         }
         payload = {
+            "amount": amount_sats,
             "currency": "SATS",
             "withdraw_method": "lightning",
             "withdraw_request": invoice
