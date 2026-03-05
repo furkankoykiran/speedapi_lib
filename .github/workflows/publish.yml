@@ -91,7 +91,7 @@ jobs:
       id-token: write
     environment:
       name: pypi
-      url: https://pypi.org/project/speedapi-python/
+      url: https://pypi.org/project/speedapi-lib/
 
     steps:
       - uses: actions/checkout@v4
