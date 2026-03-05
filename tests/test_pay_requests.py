@@ -28,12 +28,8 @@ def client(api_key):
 
 class TestPayRequestsCreate:
     def test_creates_pay_request(self, client, mock_router):
-        mock_router.post("/pay-requests").mock(
-            return_value=httpx.Response(200, json=FAKE_PR)
-        )
-        pr = client.pay_requests.create(
-            amount=21000, currency="SATS", description="Coffee payment"
-        )
+        mock_router.post("/pay-requests").mock(return_value=httpx.Response(200, json=FAKE_PR))
+        pr = client.pay_requests.create(amount=21000, currency="SATS", description="Coffee payment")
         assert pr.id == "pr_001"
         assert pr.status == PayRequestStatus.PENDING
         assert pr.lightning_invoice == "lnbc210u1p..."
@@ -41,14 +37,13 @@ class TestPayRequestsCreate:
 
 class TestPayRequestsRetrieve:
     def test_retrieves_by_id(self, client, mock_router):
-        mock_router.get("/pay-requests/pr_001").mock(
-            return_value=httpx.Response(200, json=FAKE_PR)
-        )
+        mock_router.get("/pay-requests/pr_001").mock(return_value=httpx.Response(200, json=FAKE_PR))
         pr = client.pay_requests.retrieve("pr_001")
         assert pr.id == "pr_001"
 
     def test_not_found_raises(self, client, mock_router):
         from speedapi import NotFoundError
+
         mock_router.get("/pay-requests/bad").mock(
             return_value=httpx.Response(404, text="not found")
         )
@@ -59,9 +54,7 @@ class TestPayRequestsRetrieve:
 class TestPayRequestsList:
     def test_lists_pay_requests(self, client, mock_router):
         payload = {"data": [FAKE_PR], "has_more": False}
-        mock_router.get("/pay-requests").mock(
-            return_value=httpx.Response(200, json=payload)
-        )
+        mock_router.get("/pay-requests").mock(return_value=httpx.Response(200, json=payload))
         result = client.pay_requests.list()
         assert len(result.data) == 1
         assert result.data[0].currency == "SATS"

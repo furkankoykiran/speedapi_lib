@@ -66,32 +66,24 @@ class TestCheckoutSessionModel:
 
 class TestInvoiceModel:
     def test_minimal_valid(self):
-        inv = Invoice.model_validate(
-            {"id": "inv_001", "amount": 10000, "currency": "USD"}
-        )
+        inv = Invoice.model_validate({"id": "inv_001", "amount": 10000, "currency": "USD"})
         assert inv.id == "inv_001"
         assert inv.status == InvoiceStatus.OPEN
 
     def test_optional_fields_none(self):
-        inv = Invoice.model_validate(
-            {"id": "inv_001", "amount": 10000, "currency": "USD"}
-        )
+        inv = Invoice.model_validate({"id": "inv_001", "amount": 10000, "currency": "USD"})
         assert inv.customer_email is None
         assert inv.hosted_invoice_url is None
 
 
 class TestPayRequestModel:
     def test_minimal_valid(self):
-        pr = PayRequest.model_validate(
-            {"id": "pr_001", "amount": 1000, "currency": "SATS"}
-        )
+        pr = PayRequest.model_validate({"id": "pr_001", "amount": 1000, "currency": "SATS"})
         assert pr.id == "pr_001"
         assert pr.status == PayRequestStatus.PENDING
 
     def test_lightning_invoice_optional(self):
-        pr = PayRequest.model_validate(
-            {"id": "pr_001", "amount": 1000, "currency": "SATS"}
-        )
+        pr = PayRequest.model_validate({"id": "pr_001", "amount": 1000, "currency": "SATS"})
         assert pr.lightning_invoice is None
 
 

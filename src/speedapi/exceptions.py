@@ -28,8 +28,7 @@ class SpeedAPIError(Exception):
 
     def __repr__(self) -> str:  # pragma: no cover
         return (
-            f"{self.__class__.__name__}(message={self.message!r}, "
-            f"status_code={self.status_code!r})"
+            f"{self.__class__.__name__}(message={self.message!r}, status_code={self.status_code!r})"
         )
 
 

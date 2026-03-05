@@ -66,6 +66,7 @@ class TestCheckoutSessionsRetrieve:
 
     def test_not_found_raises(self, client, mock_router):
         from speedapi import NotFoundError
+
         mock_router.get("/checkout-sessions/bad_id").mock(
             return_value=httpx.Response(404, text="not found")
         )
@@ -76,9 +77,7 @@ class TestCheckoutSessionsRetrieve:
 class TestCheckoutSessionsList:
     def test_lists_sessions(self, client, mock_router):
         payload = {"data": [FAKE_SESSION], "has_more": False}
-        mock_router.get("/checkout-sessions").mock(
-            return_value=httpx.Response(200, json=payload)
-        )
+        mock_router.get("/checkout-sessions").mock(return_value=httpx.Response(200, json=payload))
         result = client.checkout_sessions.list(limit=10)
         assert len(result.data) == 1
         assert result.has_more is False

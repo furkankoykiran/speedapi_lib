@@ -47,18 +47,14 @@ def async_client(api_key):
 class TestAsyncBalances:
     async def test_retrieve_balance(self, async_client):
         with respx.mock(base_url=BASE_URL, assert_all_called=False) as router:
-            router.get("/balances").mock(
-                return_value=httpx.Response(200, json=FAKE_BALANCE)
-            )
+            router.get("/balances").mock(return_value=httpx.Response(200, json=FAKE_BALANCE))
             balance = await async_client.balances.retrieve()
             assert balance.available[0].amount == 50000.0
             assert balance.available[0].target_currency == "SATS"
 
     async def test_retrieve_sats(self, async_client):
         with respx.mock(base_url=BASE_URL, assert_all_called=False) as router:
-            router.get("/balances").mock(
-                return_value=httpx.Response(200, json=FAKE_BALANCE)
-            )
+            router.get("/balances").mock(return_value=httpx.Response(200, json=FAKE_BALANCE))
             sats = await async_client.balances.retrieve_sats()
             assert sats == 50000.0
 
@@ -69,9 +65,7 @@ class TestAsyncCheckoutSessions:
             router.post("/checkout-sessions").mock(
                 return_value=httpx.Response(200, json=FAKE_SESSION)
             )
-            session = await async_client.checkout_sessions.create(
-                amount=5000, currency="USD"
-            )
+            session = await async_client.checkout_sessions.create(amount=5000, currency="USD")
             assert session.id == "cs_001"
             assert session.status == CheckoutSessionStatus.OPEN
 
@@ -87,9 +81,7 @@ class TestAsyncCheckoutSessions:
 class TestAsyncInvoices:
     async def test_create_invoice(self, async_client):
         with respx.mock(base_url=BASE_URL, assert_all_called=False) as router:
-            router.post("/invoices").mock(
-                return_value=httpx.Response(200, json=FAKE_INVOICE)
-            )
+            router.post("/invoices").mock(return_value=httpx.Response(200, json=FAKE_INVOICE))
             invoice = await async_client.invoices.create(amount=10000, currency="USD")
             assert invoice.id == "inv_001"
 
@@ -97,9 +89,7 @@ class TestAsyncInvoices:
 class TestAsyncPayRequests:
     async def test_create_pay_request(self, async_client):
         with respx.mock(base_url=BASE_URL, assert_all_called=False) as router:
-            router.post("/pay-requests").mock(
-                return_value=httpx.Response(200, json=FAKE_PR)
-            )
+            router.post("/pay-requests").mock(return_value=httpx.Response(200, json=FAKE_PR))
             pr = await async_client.pay_requests.create(amount=21000, currency="SATS")
             assert pr.id == "pr_001"
             assert pr.currency == "SATS"
@@ -109,8 +99,6 @@ class TestAsyncContextManager:
     async def test_context_manager_closes(self, api_key):
         async with AsyncSpeedAPI(api_key=api_key, base_url=BASE_URL) as client:
             with respx.mock(base_url=BASE_URL, assert_all_called=False) as router:
-                router.get("/balances").mock(
-                    return_value=httpx.Response(200, json=FAKE_BALANCE)
-                )
+                router.get("/balances").mock(return_value=httpx.Response(200, json=FAKE_BALANCE))
                 balance = await client.balances.retrieve()
                 assert len(balance.available) == 1

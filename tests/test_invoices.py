@@ -28,9 +28,7 @@ def client(api_key):
 
 class TestInvoicesCreate:
     def test_creates_invoice(self, client, mock_router):
-        mock_router.post("/invoices").mock(
-            return_value=httpx.Response(200, json=FAKE_INVOICE)
-        )
+        mock_router.post("/invoices").mock(return_value=httpx.Response(200, json=FAKE_INVOICE))
         invoice = client.invoices.create(
             amount=10000,
             currency="USD",
@@ -52,9 +50,8 @@ class TestInvoicesRetrieve:
 
     def test_not_found_raises(self, client, mock_router):
         from speedapi import NotFoundError
-        mock_router.get("/invoices/bad").mock(
-            return_value=httpx.Response(404, text="not found")
-        )
+
+        mock_router.get("/invoices/bad").mock(return_value=httpx.Response(404, text="not found"))
         with pytest.raises(NotFoundError):
             client.invoices.retrieve("bad")
 
@@ -62,9 +59,7 @@ class TestInvoicesRetrieve:
 class TestInvoicesList:
     def test_lists_invoices(self, client, mock_router):
         payload = {"data": [FAKE_INVOICE], "has_more": True}
-        mock_router.get("/invoices").mock(
-            return_value=httpx.Response(200, json=payload)
-        )
+        mock_router.get("/invoices").mock(return_value=httpx.Response(200, json=payload))
         result = client.invoices.list()
         assert len(result.data) == 1
         assert result.has_more is True

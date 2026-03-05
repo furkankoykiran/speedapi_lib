@@ -42,9 +42,7 @@ def _raise_for_status(response: httpx.Response) -> None:
     common_kwargs: Dict[str, Any] = {"status_code": status, "response_body": body}
 
     if status == 401:
-        raise AuthenticationError(
-            "Authentication failed. Check your API key.", **common_kwargs
-        )
+        raise AuthenticationError("Authentication failed. Check your API key.", **common_kwargs)
     if status == 403:
         raise PermissionDeniedError(
             "Your API key does not have permission to perform this action.",
@@ -53,12 +51,8 @@ def _raise_for_status(response: httpx.Response) -> None:
     if status == 404:
         raise NotFoundError("The requested resource was not found.", **common_kwargs)
     if status == 429:
-        raise RateLimitError(
-            "Rate limit exceeded. Back off before retrying.", **common_kwargs
-        )
-    raise APIStatusError(
-        f"API error {status}: {body}", **common_kwargs
-    )
+        raise RateLimitError("Rate limit exceeded. Back off before retrying.", **common_kwargs)
+    raise APIStatusError(f"API error {status}: {body}", **common_kwargs)
 
 
 class SyncTransport:

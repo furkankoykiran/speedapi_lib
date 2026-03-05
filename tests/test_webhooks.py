@@ -32,9 +32,7 @@ class TestWebhookConstuctEvent:
     def test_valid_signature_returns_event(self):
         ts = int(time.time())
         header = _make_sig_header(PAYLOAD_BYTES, SECRET, ts)
-        event = Webhooks.construct_event(
-            payload=PAYLOAD_BYTES, sig_header=header, secret=SECRET
-        )
+        event = Webhooks.construct_event(payload=PAYLOAD_BYTES, sig_header=header, secret=SECRET)
         assert event.id == "evt_001"
         assert event.type == "checkout_session.completed"
         assert event.data["object"]["id"] == "cs_001"
@@ -68,9 +66,7 @@ class TestWebhookConstuctEvent:
 
     def test_malformed_header_raises(self):
         with pytest.raises(WebhookSignatureVerificationError, match="Malformed"):
-            Webhooks.construct_event(
-                payload=PAYLOAD_BYTES, sig_header="garbage", secret=SECRET
-            )
+            Webhooks.construct_event(payload=PAYLOAD_BYTES, sig_header="garbage", secret=SECRET)
 
     def test_invalid_json_payload_raises(self):
         ts = int(time.time())
